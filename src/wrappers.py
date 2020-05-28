@@ -51,26 +51,24 @@ def get_metrics(predictions):
 
   return metric_dict
 
-def train_and_evaluate(train_data, test_data, SurpriseAlgo):
+def train_and_evaluate(train_data, test_data, algo):
   '''Train Suprise algorithm with default hyperparams on the train data and evaluate on test set 
 
     params:
       train_data = train partition from get_train_test_split()
       test_data = test partition from get_train_test_split()
-      SupriseAlgo = specific algorithm class (https://surprise.readthedocs.io/en/stable/prediction_algorithms_package.html)
+      algo = instantiated Suprise algo object (https://surprise.readthedocs.io/en/stable/prediction_algorithms_package.html)
     
     returns:
       predictions = list of Suprise Predictions
-      metrics = dictionary of metrics after applying trained model to test set
-
-    TODO: incorporate hyper params
+      metrics = dictionary of metrics
   '''
 
-  algo = SurpriseAlgo()
-  print(algo)
-  algo.fit(train_data)
+  #algo = SurpriseAlgo()
+  algo.fit(trainset=train_data)
   predictions = algo.test(test_data)
   metrics = get_metrics(predictions)
   print(metrics)
+  #print(vars(algo))
 
   return predictions, metrics
